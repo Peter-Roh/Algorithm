@@ -1,3 +1,3 @@
 # Algorithm
 
-Files made while studying algorithm after I studied data structure. 
+Files made while studying algorithm after I studied algorithm. 
