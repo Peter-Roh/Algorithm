@@ -3,7 +3,7 @@
 
 int main(void)
 {
-	char* Source = "http:// www.seanlab.net";
+	char* Source = "http://www.seanlab.net";
 	char* Decoded = "";
 
 	HuffmanNode* Tree = NULL;
