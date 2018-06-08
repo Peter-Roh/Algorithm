@@ -36,3 +36,14 @@ typedef struct TagHuffmanCode
 	int Size;
 } HuffmanCode;
 
+HuffmanNode* Huffman_CreateNode(SymbolInfo NewData);
+void Huffman_DestroyNode(HuffmanNode* Node);
+void Huffman_DestroyTree(HuffmanNode* Node);
+void Huffman_AddBit(BitBuffer* Buffer, char Bit);
+void Huffman_Encode(HuffmanNode** Tree, UCHAR* Source, BitBuffer* Encoded, HuffmanCode CodeTable[MAX_CHAR]);
+void Huffman_Decode(HuffmanNode* Tree, BitBuffer* Encoded, UCHAR* Decoded);
+void Huffman_BuildPrefixTree(HuffmanNode** Tree, SymbolInfo SymbolInfoTable[MAX_CHAR]);
+void Huffman_BuildCodeTable(HuffmanNode* Tree, HuffmanCode CodeTable[MAX_CHAR], UCHAR Code[MAX_BIT], int Size);
+void Huffman_PrintBinary(BitBuffer* Buffer);
+
+#endif
