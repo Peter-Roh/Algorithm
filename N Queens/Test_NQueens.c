@@ -4,8 +4,8 @@
 
 int main(int argc, char* argv[])
 {
-	int I = 0;
-	int NumberOf Queens = 0;
+	int i = 0;
+	int NumberOfQueens = 0;
 	int SolutionCount = 0;
 	int* Columns;
 
