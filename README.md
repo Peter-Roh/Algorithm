@@ -1,7 +1,3 @@
-# Algorithm
-
-These files were made while I was studying algorithm after I studied Data structure. 
-
 # Table of Contents
 
 * Sorting
