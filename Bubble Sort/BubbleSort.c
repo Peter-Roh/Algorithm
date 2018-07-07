@@ -24,7 +24,7 @@ void BubbleSort(int DataSet[], int Length)
 
 		if(flag == 0)
 		{
-			return;
+			break;
 		}
 	}
 }
