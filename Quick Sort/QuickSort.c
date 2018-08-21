@@ -17,10 +17,14 @@ int Partition(int DataSet[], int Left, int Right)
 	while(Left <= Right)
 	{
 		while(DataSet[Left] <= Pivot && Left < Right)
+		{
 			++Left;
+		}
 
-		while(DataSet[Right] > Pivot && Left <= Right)
+		while(DataSet[Right] >= Pivot && Left <= Right)
+		{
 			--Right;
+		}
 
 		if(Left < Right)
 		{
