@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <ArrayStack.c>
+#include "ArrayStack.h"
 
 void Swap(int* A, int* B)
 {
@@ -8,91 +7,57 @@ void Swap(int* A, int* B)
 	*B = Temp;
 }
 
-int Partition(int DataSet[], int Left, int Right)
+void QuickSort(int DataSet[], ArrayStack* Stack, int Left, int Right)
 {
-	int First = Left;
 	int Pivot;
-	if((DataSet[First] > DataSet[First + 1]) && (DataSet[First + 1] > DataSet[First + 2]))
+	int Low, High;
+
+	AS_Push(Stack, Right);
+	AS_Push(Stack, Left);
+
+	while(!AS_IsEmpty(Stack))
 	{
-		Swap(&DataSet[First + 1], &DataSet[First]);
-	}
-	else if((DataSet[First] < DataSet[First + 1]) && (DataSet[First + 1] < DataSet[First + 2]))
-	{
-		Swap(&DataSet[First + 1], &DataSet[First]);
-	}
-	else if((DataSet[First] > DataSet[First + 1]) && (DataSet[First + 1] < DataSet[First + 2]))
-		if(DataSet[First] < DataSet[First + 2])
+		Left = AS_Pop(Stack);
+		Right = AS_Pop(Stack);
+
+		if(Right - Left > 0)
 		{
-			Pivot = DataSet[First];
+			Pivot = DataSet[Right];
+			Low = Left - 1;
+			High = Right;
+
+			while(1)
+			{
+				while(DataSet[++Low] < Pivot);
+				while(DataSet[--High] > Pivot);
+
+				if(Low >= High)
+					break;
+
+				Swap(&DataSet[Low], &DataSet[High]);
+			}
+
+			Swap(&DataSet[Low], &DataSet[Right]);
+
+			AS_Push(Stack, Right);
+			AS_Push(Stack, Low+ 1);
+			AS_Push(Stack, Low - 1);
+			AS_Push(Stack, Left);
 		}
-		else
-		{
-			Swap(&DataSet[First + 2], &DataSet[First]);
-		}
-	else if((DataSet[First] < DataSet[First + 1]) && (DataSet[First + 1] > DataSet[First + 2]))
-		if(DataSet[First] < DataSet[First + 2])
-		{
-			Swap(&DataSet[First + 2], &DataSet[First]);
-		}
-		else
-			Pivot = DataSet[First];
-
-	Pivot = DataSet[First];
-	++Left;
-
-	while(Left <= Right)
-	{
-		while(DataSet[Left] <= Pivot && Left < Right)
-			++Left;
-		while(DataSet[Right] > Pivot && Left <= Right)
-			--Right;
-		if(Left < Right)
-			Swap(&DataSet[Left], &DataSet[Right]);
-		else
-			break;
-	}
-
-	Swap(&DataSet[First], &DataSet[Right]);
-
-	return Right;
-}
-
-void QuickSort(int DataSet[], int Left, int Right)
-{
-	int i;
-
-	if(Left < Right)
-	{
-		int Index = Partition(DataSet, Left, Right);
-
-		for(i = ; i ; i--)
-
-		QuickSort(DataSet, Left, Index - 1);
-		QuickSort(DataSet, Index + 1, Right);
 	}
 }
 
 int main(void)
 {
-	int i = 0;
+	int DataSet[] = {6, 4, 2, 3, 1, 5};
+	int Length = sizeof DataSet / sizeof DataSet[0];
 
 	ArrayStack* Stack = NULL;
-	AS_CreateStack(&Stack, 6);
+	AS_CreateStack(&Stack, Length);
 
-	AS_Push(Stack, 6);
-	AS_Push(Stack, 4);
-	AS_Push(Stack, 2);
-	AS_Push(Stack, 3);
-	AS_Push(Stack, 1);
-	AS_Push(Stack, 5);
+	int i = 0;
 
-	int Length = AS_GetSize(Stack);
-
-	ArrayStack* Temp = NULL;
-	AS_CreateStack(&Temp, 2 * Length);
-
-
-	QuickSort(DataSet, 0, Length - 1);
+	QuickSort(DataSet, Stack, 0, Length - 1);
 
 	for(i = 0; i < Length; i++)
 	{
